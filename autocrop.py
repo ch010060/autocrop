@@ -70,7 +70,7 @@ def cont(img, gray, user_thresh, crop, filename):
             orig_thresh = user_thresh
             print(user_thresh)
         ret,thresh = cv2.threshold(gray,user_thresh,255,cv2.THRESH_BINARY)
-        _,contours,hierarchy = cv2.findContours(thresh, cv2.RETR_LIST, cv2.CHAIN_APPROX_NONE)
+        contours,hierarchy = cv2.findContours(thresh, cv2.RETR_LIST, cv2.CHAIN_APPROX_NONE)
         im_area = im_w * im_h
         for cnt in contours:
             area = cv2.contourArea(cnt)
@@ -106,7 +106,7 @@ def main(thresh, crop, filename):
     img = cv2.copyMakeBorder(img,100,100,100,100, cv2.BORDER_CONSTANT,value=[255,255,255])
     im_h, im_w = img.shape[:2]
     gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-    res_gray = cv2.resize(img,(im_w/6, im_h/6), interpolation = cv2.INTER_CUBIC)
+    res_gray = cv2.resize(img,(int(im_w/6), int(im_h/6)), interpolation = cv2.INTER_CUBIC)
     found, im_w, im_h = cont(img, gray, thresh, crop, filename)
 
 
