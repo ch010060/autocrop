@@ -4,8 +4,8 @@ Should work on Windows, Linux and Mac.
 
 ## Install requirements
 
-- pip install cv2
-- pip install numpy
+`pip install python-opencv`
+`pip install numpy`
 
 ## Usage: python autocropy.py (THRESHOLD) (MIN_CROP)
 
@@ -20,7 +20,7 @@ Run script as described above. THRESHOLD and MIN_CROP are optional. Results will
 ## Troubleshooting
 
 ### Problem:
-- `ValueError: too many values to unpack (expected 2)`
+`ValueError: too many values to unpack (expected 2)`
 ### Solution:
 You likely use an outdated version of OpenCV. Make sure you have OpenCV 4.0 or higher installed. The version can be checked by executing the following code in your favorite python interpreter:
 
