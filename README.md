@@ -9,9 +9,7 @@ Should work on Windows, Linux and Mac.
 
 ## Usage
 
-```bash
-python autocropy.py <THRESHOLD> <MIN_CROP>
-```
+`python autocropy.py <THRESHOLD> <MIN_CROP>`
 
 Place autocrop.py into a folder of scanned images. Those images should be roughly cropped already (see examples). 
 Also: only one image per scan!
