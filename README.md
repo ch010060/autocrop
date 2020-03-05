@@ -4,8 +4,10 @@ Should work on Windows, Linux and Mac.
 
 ## Install requirements
 
-`pip install python-opencv`
-`pip install numpy`
+```bash
+pip install python-opencv
+pip install numpy
+```
 
 ## Usage
 
@@ -27,8 +29,9 @@ Run script as described above. THRESHOLD and MIN_CROP are optional. Results will
 You likely use an outdated version of OpenCV. Make sure you have OpenCV 4.0 or higher installed. The version can be checked by executing the following code in your favorite python interpreter:
 
 ```python
-import cv2
-print("OpenCV version: ", cv2.__version__)
+>>> import cv2
+>>> print("OpenCV version: ", cv2.__version__)
+OpenCV version: 4.2.0
 ```
 
 ## Todo: executables for Windows + basic GUI
