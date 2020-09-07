@@ -76,7 +76,7 @@ def cont(img, gray, user_thresh, crop, filename):
         im_area = im_w * im_h
         for cnt in contours:
             counter += 1
-            if counter > 30:
+            if counter > 10000:
                 # Count failed
                 os.system("IF EXIST "+ filename +" MOVE "+filename+" error") #create folder for failed cropped images
                 found = True
