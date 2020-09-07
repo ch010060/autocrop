@@ -67,7 +67,7 @@ def four_point_transform(image, pts):
 def cont(img, gray, user_thresh, crop, filename):
     found = False
     counter = 0
-    cwd = os.getcwd() + '/crop/'
+    cwd = os.getcwd() + '\\crop\\'
     orig_thresh = user_thresh
     im_h, im_w = img.shape[:2]
     while found == False: # repeat to find the right threshold value for finding a rectangle
@@ -82,7 +82,7 @@ def cont(img, gray, user_thresh, crop, filename):
             counter += 1
             if counter > 10000:
                 # Count failed
-                os.system("IF EXIST "+ filename +" MOVE "+filename+" error") #create folder for failed cropped images
+                os.system('IF EXIST "'+ filename +'" MOVE "'+filename+'" error') #create folder for failed cropped images
                 found = True
             area = cv2.contourArea(cnt)
             if area > (im_area/6) and area < (im_area/1.01):
@@ -108,13 +108,13 @@ def cont(img, gray, user_thresh, crop, filename):
                 PILimage = Image.fromarray(RGBimage)
                 PILimage.save(cwd+"crop_"+filename, dpi=(DPI,DPI))
                 #cv2.imwrite(cwd+"crop_"+filename, img, [int(cv2.IMWRITE_PNG_COMPRESSION), 100])
-                os.system("MOVE "+filename+" pass") #create folder for failed cropped images
+                os.system('MOVE "'+filename+'" pass') #create folder for failed cropped images
                 #res = cv2.resize(img,(dst_w/6, dst_h/6), interpolation = cv2.INTER_CUBIC)
 
     return found, im_w, im_h
 
 def main(thresh, crop, filename):
-    img = cv2.imread(filename)
+    img = cv2.imdecode(np.fromfile(filename, dtype=np.uint8), cv2.IMREAD_UNCHANGED)
     print("Opening: "+filename)
 
     #add white background (in case one side is cropped right already, otherwise script would fail finding contours)
