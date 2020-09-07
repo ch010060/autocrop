@@ -7,6 +7,7 @@ Should work on Windows, Linux and Mac.
 ```bash
 pip install python-opencv
 pip install numpy
+pip install Pillow
 ```
 
 ## Usage
