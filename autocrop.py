@@ -82,8 +82,9 @@ def cont(img, gray, user_thresh, crop, filename):
             counter += 1
             if counter > 10000:
                 # Count failed
-                os.system('IF EXIST "'+ filename +'" MOVE "'+filename+'" error') #create folder for failed cropped images
+                os.system('IF EXIST "'+ filename +'" MOVE "'+filename+'" error') #move failed raw image
                 found = True
+                break
             area = cv2.contourArea(cnt)
             if area > (im_area/6) and area < (im_area/1.01):
                 epsilon = 0.1*cv2.arcLength(cnt,True)
@@ -108,7 +109,7 @@ def cont(img, gray, user_thresh, crop, filename):
                 PILimage = Image.fromarray(RGBimage)
                 PILimage.save(cwd+"crop_"+filename, dpi=(DPI,DPI))
                 #cv2.imwrite(cwd+"crop_"+filename, img, [int(cv2.IMWRITE_PNG_COMPRESSION), 100])
-                os.system('MOVE "'+filename+'" pass') #create folder for failed cropped images
+                os.system('MOVE "'+filename+'" pass') #move passed raw image
                 #res = cv2.resize(img,(dst_w/6, dst_h/6), interpolation = cv2.INTER_CUBIC)
 
     return found, im_w, im_h
