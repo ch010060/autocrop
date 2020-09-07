@@ -5,8 +5,8 @@ Should work on Windows, Linux and Mac.
 ## New feature at this fork
 **1. Support multiprocessing to improve performance**  
 **2. Support DPI setting of the output image**  
-**3. Support filename with Unicode characters**	 
-**4. Add some error handling for infinity loop problem**	
+**3. Support filename with Unicode characters**   
+**4. Add some error handling for infinity loop problem**  
 
 ## Install requirements
 
