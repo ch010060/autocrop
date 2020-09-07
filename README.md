@@ -2,6 +2,11 @@
 Automatically crop and rotate scanned images using OpenCV.
 Should work on Windows, Linux and Mac.
 
+## New feature at this fork
+**1. Support multiprocessing to improve performance**  
+**2. Support DPI setting of the output image**  
+**3. Add some error handling for infinity loop problem**  
+
 ## Install requirements
 
 ```bash
