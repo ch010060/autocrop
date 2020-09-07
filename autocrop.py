@@ -61,6 +61,7 @@ def four_point_transform(image, pts):
 
 def cont(img, gray, user_thresh, crop, filename):
     found = False
+    counter = 0
     cwd = os.getcwd() + '/crop/'
     orig_thresh = user_thresh
     im_h, im_w = img.shape[:2]
@@ -73,6 +74,11 @@ def cont(img, gray, user_thresh, crop, filename):
         contours,hierarchy = cv2.findContours(thresh, cv2.RETR_LIST, cv2.CHAIN_APPROX_NONE)
         im_area = im_w * im_h
         for cnt in contours:
+            counter += 1
+            if counter > 30:
+                # Count failed
+                os.system("IF EXIST "+ filename +" MOVE "+filename+" error") #create folder for failed cropped images
+                found = True
             area = cv2.contourArea(cnt)
             if area > (im_area/6) and area < (im_area/1.01):
                 epsilon = 0.1*cv2.arcLength(cnt,True)
@@ -94,6 +100,7 @@ def cont(img, gray, user_thresh, crop, filename):
                 dst_h, dst_w = img.shape[:2]
                 print("Saveing to "+cwd+"crop_"+filename)
                 cv2.imwrite(cwd+"crop_"+filename, img, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
+                os.system("MOVE "+filename+" pass") #create folder for failed cropped images
                 #res = cv2.resize(img,(dst_w/6, dst_h/6), interpolation = cv2.INTER_CUBIC)
 
     return found, im_w, im_h
@@ -110,7 +117,9 @@ def main(thresh, crop, filename):
     found, im_w, im_h = cont(img, gray, thresh, crop, filename)
 
 
-os.system("mkdir crop") #create folder for cropped images
+os.system("IF NOT EXIST crop MD crop") #create folder for cropped images
+os.system("IF NOT EXIST pass md pass") #create folder for passed cropped images
+os.system("IF NOT EXIST error md error") #create folder for failed cropped images
 
 if len(sys.argv) < 2:
     thresh = 220 #standard starting threshold value (used to be a good compromise) -> can easily be smaller for pictures without white border
