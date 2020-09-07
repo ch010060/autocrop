@@ -3,6 +3,7 @@ import numpy as np
 import sys
 import os
 import glob
+import multiprocessing
 
 def order_points(pts):
     # initialzie a list of coordinates that will be ordered
@@ -133,11 +134,16 @@ elif len(sys.argv) < 4:
 elif len(sys.argv) >= 4:
     print("USAGE: python img_extract_contour.py TRESHOLD MIN_CROP")
 
-files = []
-types = ('*.bmp','*.BMP','*.tiff','*.TIFF','*.tif','*.TIF','*.jpg', '*.JPG','*.JPEG', '*.jpeg', '*.png', '*.PNG') #all should work but only .jpg was tested
-for t in types:
-    if glob.glob(t) != []:
-        files.append(glob.glob(t))
-for f in files[0]:
-    main(thresh, crop, f)
-
+if __name__ == '__main__':
+    multiprocessing.freeze_support()
+    pool = multiprocessing.Pool(multiprocessing.cpu_count())
+    files = []
+    types = ('*.bmp','*.BMP','*.tiff','*.TIFF','*.tif','*.TIF','*.jpg', '*.JPG','*.JPEG', '*.jpeg', '*.png', '*.PNG') #all should work but only .jpg was tested
+    for t in types:
+        if glob.glob(t) != []:
+            files.append(glob.glob(t))
+    for f in files[0]:
+        pool.apply_async(main, args=(thresh, crop, f))
+        #main(thresh, crop, f)
+    pool.close()
+    pool.join()
