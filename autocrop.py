@@ -5,6 +5,10 @@ import os
 import glob
 import multiprocessing
 
+from PIL import Image
+
+DPI = 600
+
 def order_points(pts):
     # initialzie a list of coordinates that will be ordered
     # such that the first entry in the list is the top-left,
@@ -100,7 +104,10 @@ def cont(img, gray, user_thresh, crop, filename):
                 img = dst[crop:dst_h-crop, crop:dst_w-crop]
                 dst_h, dst_w = img.shape[:2]
                 print("Saveing to "+cwd+"crop_"+filename)
-                cv2.imwrite(cwd+"crop_"+filename, img, [int(cv2.IMWRITE_PNG_COMPRESSION), 100])
+                RGBimage = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+                PILimage = Image.fromarray(RGBimage)
+                PILimage.save(cwd+"crop_"+filename, dpi=(DPI,DPI))
+                #cv2.imwrite(cwd+"crop_"+filename, img, [int(cv2.IMWRITE_PNG_COMPRESSION), 100])
                 os.system("MOVE "+filename+" pass") #create folder for failed cropped images
                 #res = cv2.resize(img,(dst_w/6, dst_h/6), interpolation = cv2.INTER_CUBIC)
 
